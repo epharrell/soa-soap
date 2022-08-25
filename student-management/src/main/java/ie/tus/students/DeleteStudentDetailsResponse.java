@@ -10,6 +10,7 @@ package ie.tus.students;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 
@@ -24,7 +25,7 @@ import javax.xml.bind.annotation.XmlType;
  *   &lt;complexContent>
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
  *       &lt;sequence>
- *         &lt;element name="id" type="{http://www.w3.org/2001/XMLSchema}int"/>
+ *         &lt;element name="Status" type="{http://www.w3.org/2001/XMLSchema}int"/>
  *       &lt;/sequence>
  *     &lt;/restriction>
  *   &lt;/complexContent>
@@ -35,27 +36,28 @@ import javax.xml.bind.annotation.XmlType;
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "", propOrder = {
-    "id"
+    "status"
 })
-@XmlRootElement(name = "GetStudentDetailsRequest")
-public class GetStudentDetailsRequest {
+@XmlRootElement(name = "DeleteStudentDetailsResponse")
+public class DeleteStudentDetailsResponse {
 
-    protected int id;
+    @XmlElement(name = "Status")
+    protected int status;
 
     /**
-     * Gets the value of the id property.
+     * Gets the value of the status property.
      * 
      */
-    public int getId() {
-        return id;
+    public int getStatus() {
+        return status;
     }
 
     /**
-     * Sets the value of the id property.
+     * Sets the value of the status property.
      * 
      */
-    public void setId(int value) {
-        this.id = value;
+    public void setStatus(int value) {
+        this.status = value;
     }
 
 }

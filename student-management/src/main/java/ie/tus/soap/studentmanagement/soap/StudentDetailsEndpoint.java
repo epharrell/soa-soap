@@ -1,10 +1,18 @@
 package ie.tus.soap.studentmanagement.soap;
 
+import java.util.List;
+
 import org.springframework.ws.server.endpoint.annotation.Endpoint;
 import org.springframework.ws.server.endpoint.annotation.PayloadRoot;
 import org.springframework.ws.server.endpoint.annotation.RequestPayload;
 import org.springframework.ws.server.endpoint.annotation.ResponsePayload;
 
+import ie.tus.soap.studentmanagement.soap.bean.Student;
+import ie.tus.soap.studentmanagement.soap.data.StudentDao;
+import ie.tus.students.DeleteStudentDetailsRequest;
+import ie.tus.students.DeleteStudentDetailsResponse;
+import ie.tus.students.GetAllStudentDetailsRequest;
+import ie.tus.students.GetAllStudentDetailsResponse;
 import ie.tus.students.GetStudentDetailsRequest;
 import ie.tus.students.GetStudentDetailsResponse;
 import ie.tus.students.StudentDetails;
@@ -16,16 +24,51 @@ public class StudentDetailsEndpoint {
 		// The incoming request, @RequestPayload, is GetStudentDetailsRequest in the specified namespace
 		@PayloadRoot(namespace = "http://tus.ie/students", localPart = "GetStudentDetailsRequest")
 		@ResponsePayload   // this method returns a value to be mapped to the response payload
-		public GetStudentDetailsResponse processCourseDetailsRequest(@RequestPayload GetStudentDetailsRequest request) {
+		public GetStudentDetailsResponse processStudentDetailsRequest(@RequestPayload GetStudentDetailsRequest request) {
 			GetStudentDetailsResponse response = new GetStudentDetailsResponse();
 			
+			// Get a student using the new Data Access object
+			Student student = StudentDao.instance.getStudent(request.getId());
+			
 			StudentDetails studentDetails = new StudentDetails();
-			studentDetails.setId(request.getId());
-			studentDetails.setName("Joe Bloggs");
-			studentDetails.setAddress("Athlone");
+			studentDetails.setId(student.getId());
+			studentDetails.setName(student.getName());
+			studentDetails.setAddress(student.getAddress());
 			
 			response.setStudentDetails(studentDetails);
 			
+			return response;		
+		}	
+		
+		@PayloadRoot(namespace = "http://tus.ie/students", localPart = "GetAllStudentDetailsRequest")
+		@ResponsePayload   // this method returns a value to be mapped to the response payload
+		public GetAllStudentDetailsResponse processAllStudentDetailsRequest(@RequestPayload GetAllStudentDetailsRequest request) {
+			GetAllStudentDetailsResponse response = new GetAllStudentDetailsResponse();
+			
+			// Get a student using the new Data Access object
+			List<Student> students = StudentDao.instance.getAllStudents();
+			
+			for(Student stud : students) {
+				StudentDetails studentDetails = new StudentDetails();
+				studentDetails.setId(stud.getId());
+				studentDetails.setName(stud.getName());
+				studentDetails.setAddress(stud.getAddress());
+				
+				response.getStudentDetails().add(studentDetails);
+			}
+				
+			return response;		
+		}
+		
+		@PayloadRoot(namespace = "http://tus.ie/students", localPart = "DeleteStudentDetailsRequest")
+		@ResponsePayload   // this method returns a value to be mapped to the response payload
+		public DeleteStudentDetailsResponse deleteStudentDetailsRequest(@RequestPayload DeleteStudentDetailsRequest request) {
+			DeleteStudentDetailsResponse response = new DeleteStudentDetailsResponse();
+			
+			// Get a student using the new Data Access object
+			int status = StudentDao.instance.deleteStudent(request.getId());
+			response.setStatus(status);
+				
 			return response;		
 		}
 }

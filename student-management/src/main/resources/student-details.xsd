@@ -18,6 +18,35 @@
 		</xs:complexType>
 	</xs:element>
 	
+	<xs:element name="GetAllStudentDetailsRequest">
+		<xs:complexType>
+			<!-- Leave the complex type here or the java class won't be created. -->
+		</xs:complexType>
+	</xs:element>
+	
+	<xs:element name="GetAllStudentDetailsResponse">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="StudentDetails" type="tns:StudentDetails" maxOccurs="unbounded"></xs:element>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	
+	<xs:element name="DeleteStudentDetailsRequest">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="id" type="xs:int"></xs:element>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	
+	<xs:element name="DeleteStudentDetailsResponse">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="Status" type="xs:int"></xs:element>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
 
 	<xs:complexType name="StudentDetails">
 		<xs:sequence>

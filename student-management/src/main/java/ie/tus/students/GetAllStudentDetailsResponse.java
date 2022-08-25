@@ -8,6 +8,8 @@
 
 package ie.tus.students;
 
+import java.util.ArrayList;
+import java.util.List;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
@@ -25,7 +27,7 @@ import javax.xml.bind.annotation.XmlType;
  *   &lt;complexContent>
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
  *       &lt;sequence>
- *         &lt;element name="StudentDetails" type="{http://tus.ie/students}StudentDetails"/>
+ *         &lt;element name="StudentDetails" type="{http://tus.ie/students}StudentDetails" maxOccurs="unbounded"/>
  *       &lt;/sequence>
  *     &lt;/restriction>
  *   &lt;/complexContent>
@@ -38,34 +40,39 @@ import javax.xml.bind.annotation.XmlType;
 @XmlType(name = "", propOrder = {
     "studentDetails"
 })
-@XmlRootElement(name = "GetStudentDetailsResponse")
-public class GetStudentDetailsResponse {
+@XmlRootElement(name = "GetAllStudentDetailsResponse")
+public class GetAllStudentDetailsResponse {
 
     @XmlElement(name = "StudentDetails", required = true)
-    protected StudentDetails studentDetails;
+    protected List<StudentDetails> studentDetails;
 
     /**
      * Gets the value of the studentDetails property.
      * 
-     * @return
-     *     possible object is
-     *     {@link StudentDetails }
-     *     
-     */
-    public StudentDetails getStudentDetails() {
-        return studentDetails;
-    }
-
-    /**
-     * Sets the value of the studentDetails property.
+     * <p>
+     * This accessor method returns a reference to the live list,
+     * not a snapshot. Therefore any modification you make to the
+     * returned list will be present inside the JAXB object.
+     * This is why there is not a <CODE>set</CODE> method for the studentDetails property.
      * 
-     * @param value
-     *     allowed object is
-     *     {@link StudentDetails }
-     *     
+     * <p>
+     * For example, to add a new item, do as follows:
+     * <pre>
+     *    getStudentDetails().add(newItem);
+     * </pre>
+     * 
+     * 
+     * <p>
+     * Objects of the following type(s) are allowed in the list
+     * {@link StudentDetails }
+     * 
+     * 
      */
-    public void setStudentDetails(StudentDetails value) {
-        this.studentDetails = value;
+    public List<StudentDetails> getStudentDetails() {
+        if (studentDetails == null) {
+            studentDetails = new ArrayList<StudentDetails>();
+        }
+        return this.studentDetails;
     }
 
 }
